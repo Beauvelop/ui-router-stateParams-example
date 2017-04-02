@@ -1,4 +1,4 @@
-angular.module('routeApp', ['ui.router'])
+angular.module('libApp', ['ui.router'])
   .config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.when('', '/home') //this is four redirection to 'home'
@@ -11,16 +11,23 @@ angular.module('routeApp', ['ui.router'])
         url: '/home',
         templateUrl: './states/home/home.html'
       })
-      .state('about', {
-        controller: 'aboutCtrl',
-        url: '/about',
-        templateUrl: './states/about/about.html'
+      .state('library', {
+        controller: 'libcontroller', //REVIEW: This seems to call the controller twice! both from index.html & from here.
+        url: '/library',
+        templateUrl: './states/library/lib.html'
       })
-      .state('reader', {
-        controller: 'readerCtrl',
-        url: '/reader/:id', //NB:parameter
-        templateUrl: './states/reader/reader.html'
-      })
+
+    // .state('about', {
+    //   controller: 'aboutCtrl',
+    //   url: '/about',
+    //   templateUrl: './states/about/about.html'
+    // })
+
+    // .state('reader', {
+    //   controller: 'readerCtrl',
+    //   url: '/reader/:id', //NB:parameter
+    //   templateUrl: './states/reader/reader.html'
+    // })
 
 
   });

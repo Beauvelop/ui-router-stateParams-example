@@ -1,0 +1,117 @@
+<body>
+
+
+<div class="" ng-controller="libcontroller">
+    {{libtest}}
+
+<div ng-controller="libcontroller" style="padding: auto 2vw">
+    <img style="width: 40vw" ng-src="{{library.imageURL}}" alt="{{library.name}}">
+    <div class="row">
+        <div class="spann11">
+            <h2 ng-bind-template="{{library.name}} {{library.date | date: 'medium'}}"></h2>
+        </div>
+    </div>
+    <div class="" ng-bind-html="snippet">some title</div>
+    <div class="row">
+        <div class="span5">
+            <h2>library time: {{library.time}}</h2>
+        </div>
+        <div class="span4">
+            <address>
+        <strong>Address</strong><br>
+        {{library.location.address}}<br>
+        {{library.location.city}}, {{library.location.state}}
+      </address>
+        </div>
+    </div>
+    <hr>
+    <h3>Library</h3><br>
+    <span class="filter-title">Select by:  </span><span class="filter-subheading">category</span>
+  </div>
+
+    <select class="orderby-select input-small" ng-model="sortOrder" >
+      <option value="">all</option>
+      <option value="tech">technology</option>
+      <option value="name">title</option>
+      <option label="snippet">snippet</option>
+      <option value="-upvoteCount">votes</option>
+
+    </select><span class="filter-subheading">tech</span>
+    <select class="show-select input-small" ng-model="techquery">
+      <option value="">all</option>
+      <option value="ruby">ruby</option>
+      <option value="javascript">javascript</option>
+      <option value="angular">angular</option>
+
+    </select><span class="filter-subheading">status</span>
+    <select class="show-select input-small" ng-model="query.isChecked">
+      <option value="">all</option>
+      <option value="false">remaining</option>
+      <option value="true">done</option>
+    </select>
+
+    <ul class="thumbnails">
+        <li ng-repeat="lesson in library.lessons | orderBy: sortOrder | filter: techquery | filter: query">
+            <div class="row session">
+                <div class="span0 well votingWidget">
+                    <div class="votingButton" ng-click="upvotesnippet(lesson)">
+                        <i class="icon-chevron-up icon-white"></i>
+                    </div>
+                    <div class="badge badge-inverse">
+                        <div class="">{{lesson.upvoteCount}}</div>
+                    </div>
+                    <div class="votingButton" ng-click="downvotesnippet(lesson)">
+                        <i class="icon-chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="well span9">
+                    <button class="checkBtn" ng-click="checkIt(lesson)">X</button>
+                    <img class="techIcon" ng-src="{{lesson.techIcon}}" alt="{{lesson.tech}}">
+                    <span class="difficulty">difficulty: {{lesson.difficulty | difficultyFilter}}</span>
+
+                    <!-- <div class="details-container"> -->
+                    <h4 class="tech">{{lesson.tech | uppercase}}</h4>
+                    <h4 class="well-title tech-title">{{lesson.name}}</h4>
+                    <h6 class="description">{{lesson.description}}</h6>
+                    <hr>
+                    <!-- </div> -->
+                    <h3 class="lighter lemon">{{lesson.triviaQ}}</h3>
+                    <textarea id="snip">{{lesson.snippet}}</textarea>
+                    <br>
+                    <h4 ng-show="curious">
+                      <span ng-show="curious">
+                        <pre class="ltgr answer-container" ng-bind-template="{{lesson.answer}}"></pre>
+                      </span>
+                      <h4 ng-hide="curious" ng-bind-html="horizRule"></h4>
+                    </h4>
+                    <button ng-style="myBtnStyle" ng-click="curious = !curious">answer</button>
+                    <div class="btnbox">
+
+                        <button ng-style="myBtnStyle" class="copybtn" data-clipboard-target="#snip">
+                      <img ng-src="img/clippy.svg" alt="clipboard">
+                    </button>
+                        <a ng-href="https://repl.it/languages/" target="_newtab">
+                            <button ng-style="myBtnStyle" class="copybtn" data-clipboard-target="#snip">
+                        <img ng-src="img/replitLogo.png" alt="replitLink">
+                      </button>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+</div>
+<!--Ctrl END-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+<!-- ***************************************** -->
+<script>
+    var clipboard = new Clipboard('.copybtn');
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+</script>
+</body>
